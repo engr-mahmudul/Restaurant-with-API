@@ -4,11 +4,21 @@ let showData = (data,text)=>{
         let errorDiv = document.getElementById('messages');
         
         let message = document.createElement('div');
-        message.innerHTML=`<p class='text-center p-3  container '>Your searching result <b>${text}</b> is not found</p>`;
+        message.innerHTML=`<p class='text-center p-3  container text-2xl '>Your searching result <b>"${text}"</b> is not found</p>`;
         errorDiv.appendChild(message);
     }
     else{
-       console.log("yes");
+       let itemContainer = document.getElementById('item-container');
+      for(let i of data){
+        let div = document.createElement('div');
+        div.innerHTML = `
+        <img src="${i.strMealThumb}" height="150" width="150" alt="">
+        <h3>${i.strMeal}</h3>
+        `
+        
+        itemContainer.appendChild(div);
+      }
+
     }
     
 }
@@ -32,12 +42,14 @@ let useSearchText = text =>{
         let errorDiv = document.getElementById('messages');
         
         let message = document.createElement('div');
-        message.innerHTML=`<p class='text-center p-3 bg-danger container text-white'><b>Please enter a meal name...</b></p>`;
+        message.innerHTML=`<p class='text-center text-white bg-red-600 text-2xl'><b>Please enter a meal name...</b></p>`;
         errorDiv.appendChild(message);
+
 
     }
     else{
-        fetchUrlWithText (text);
+       fetchUrlWithText (text);
+       
               
         
     }
@@ -46,7 +58,9 @@ let useSearchText = text =>{
 // Button Click Handler 
 document.getElementById('search-button').addEventListener('click',function(){
 let searchText = document.getElementById('search-field').value;
+
 document.getElementById("messages").innerHTML = "";
+document.getElementById('item-container').innerHTML = '';
 useSearchText(searchText);
 
 })

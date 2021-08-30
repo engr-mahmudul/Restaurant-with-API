@@ -10,6 +10,9 @@ nav{
     color: white;
     font-weight: 700;
 }
-span{
-  
+input{
+    font-size: larger;
+    border: 1px solid black;
+    text-align: center;
+    border-radius: 10px;
 }
