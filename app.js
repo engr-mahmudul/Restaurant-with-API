@@ -1,10 +1,20 @@
 function showSingleItemDetails(data){
+    window.scrollTo(0, 40);
+    document.getElementById("item-details").textContent = '';
+    document.getElementById("messages").textContent = '';
+    
     console.log(data)
     let detailDiv = document.getElementById("item-details");
     let div = document.createElement('div');
     div.innerHTML = `
-    name:${data.idMeal}
-    details:${data.strMeal}
+    <div class="card border border-success rounded" onclick = "showDetails(${data.idMeal})">
+                <img src="${data.strMealThumb}" class="card-img-top" height="350" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title text-success">${data.strMeal}</h5>
+                    <h5 class="fs-6"> ${data.strInstructions.slice(0,200)} </h5>
+                    
+                </div>
+            </div>
 
     `
     detailDiv.appendChild(div);
@@ -39,7 +49,7 @@ let showData = (data,text)=>{
             const newDiv = document.createElement('div');
             newDiv.classList.add('col');
             newDiv.innerHTML = `
-            <div class="card" onclick = "showDetails(${item.idMeal})">
+            <div class="card border border-success rounded" onclick = "showDetails(${item.idMeal})">
                 <img src="${item.strMealThumb}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${item.strMeal.slice(0,15)}</h5>
@@ -85,6 +95,7 @@ let useSearchText = text =>{
        fetchUrlWithText (text);         
     }
 }
+
 
 // Button Click Handler 
 document.getElementById('search-button').addEventListener('click',function(){
