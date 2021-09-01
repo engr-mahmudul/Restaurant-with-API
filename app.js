@@ -8,16 +8,23 @@ let showData = (data,text)=>{
         errorDiv.appendChild(message);
     }
     else{
-       let itemContainer = document.getElementById('item-container');
-      for(let i of data){
-        let div = document.createElement('div');
-        div.innerHTML = `
-        <img src="${i.strMealThumb}" height="150" width="150" alt="">
-        <h3>${i.strMeal}</h3>
-        `
-        
-        itemContainer.appendChild(div);
-      }
+        console.log(data);
+        const itemContainer = document.getElementById('item-container');
+        data.forEach(item => {
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('col');
+            newDiv.innerHTML = `
+            <div class="card">
+                <img src="${item.strMealThumb}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                    additional content. This content is a little bit longer.</p>
+                </div>
+            </div>
+            `
+            itemContainer.appendChild(newDiv);
+        })
 
     }
     
@@ -39,11 +46,14 @@ let fetchUrlWithText = text =>{
 let useSearchText = text =>{
     if(text.length<1){
         
-        let errorDiv = document.getElementById('messages');
-        
-        let message = document.createElement('div');
-        message.innerHTML=`<p class='text-center text-white bg-red-600 text-2xl'><b>Please enter a meal name...</b></p>`;
-        errorDiv.appendChild(message);
+        console.log("Empty Search field");
+        const messageField = document.getElementById('messages');
+        let div = document.createElement('div');
+        div.classList.add("bg-danger", "p-3", "container","w-80");
+        div.innerHTML = `
+        <p class="text-white text-center fw-bold fs-5 text"> Please put a Food name for searching</p>
+        `
+        messageField.appendChild(div);
 
 
     }
@@ -58,8 +68,8 @@ let useSearchText = text =>{
 // Button Click Handler 
 document.getElementById('search-button').addEventListener('click',function(){
 let searchText = document.getElementById('search-field').value;
-
-document.getElementById("messages").innerHTML = "";
+document.getElementById('search-field').value = '';
+document.getElementById("messages").innerHTML = '';
 document.getElementById('item-container').innerHTML = '';
 useSearchText(searchText);
 
