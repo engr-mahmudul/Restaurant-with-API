@@ -1,3 +1,20 @@
+function showSingleItemDetails(data){
+    console.log(data)
+    let detailDiv = document.getElementById("item-details");
+    let div = document.createElement('div');
+    div.innerHTML = `
+    name:${data.idMeal}
+    details:${data.strMeal}
+
+    `
+    detailDiv.appendChild(div);
+}
+function showDetails(id){
+   url=`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+   fetch(url)
+   .then(response => response.json())
+   .then(data => showSingleItemDetails(data.meals[0]))
+}
 //Display data which has beeb fetched
 let showData = (data,text)=>{
     if (data === null){
@@ -22,12 +39,11 @@ let showData = (data,text)=>{
             const newDiv = document.createElement('div');
             newDiv.classList.add('col');
             newDiv.innerHTML = `
-            <div class="card">
+            <div class="card" onclick = "showDetails(${item.idMeal})">
                 <img src="${item.strMealThumb}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                    additional content. This content is a little bit longer.</p>
+                    <h5 class="card-title">${item.strMeal.slice(0,15)}</h5>
+                    
                 </div>
             </div>
             `
@@ -75,6 +91,7 @@ document.getElementById('search-button').addEventListener('click',function(){
 let searchText = document.getElementById('search-field').value;
 document.getElementById('search-field').value = '';
 document.getElementById("messages").innerHTML = '';
+document.getElementById("item-details").innerHTML = '';
 document.getElementById('item-container').innerHTML = '';
 useSearchText(searchText);
 
