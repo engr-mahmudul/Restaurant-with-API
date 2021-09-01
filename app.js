@@ -9,6 +9,14 @@ let showData = (data,text)=>{
     }
     else{
         console.log(data);
+        // Message
+        const messageField = document.getElementById('messages');
+        let div = document.createElement('div');
+        div.classList.add("p-3", "container","w-80");
+        div.innerHTML = `
+        <p class=" text-center fs-5 text"> Searching Results for <b>${text}</b> :</p>`
+        messageField.appendChild(div);
+        // End Message 
         const itemContainer = document.getElementById('item-container');
         data.forEach(item => {
             const newDiv = document.createElement('div');
@@ -49,19 +57,16 @@ let useSearchText = text =>{
         console.log("Empty Search field");
         const messageField = document.getElementById('messages');
         let div = document.createElement('div');
-        div.classList.add("bg-danger", "p-3", "container","w-80");
+        div.classList.add("bg-danger", "p-3", "container","w-80","border","rounded");
         div.innerHTML = `
-        <p class="text-white text-center fw-bold fs-5 text"> Please put a Food name for searching</p>
+        <p class="text-white text-center fw-bold fs-5 text "> Please put a Food name for searching</p>
         `
         messageField.appendChild(div);
 
 
     }
     else{
-       fetchUrlWithText (text);
-       
-              
-        
+       fetchUrlWithText (text);         
     }
 }
 
